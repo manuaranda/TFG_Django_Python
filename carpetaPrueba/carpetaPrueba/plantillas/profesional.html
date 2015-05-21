@@ -1,0 +1,27 @@
+{% extends "enlace.html" %}
+ 
+{% block login %}
+    {% with user.username as username %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+{% block contenido %}
+    <div class="panel right">
+    </div>
+    
+    
+    <div class="panel left">
+        <h1> Curriculum de  {{user.first_name}} {{formulario.first_name} </h1> {% csrf_token %}
+        <h2>
+
+        <li class="empresa">Empresa: {{tweets.nombre}}</li>
+        <li class="ocupacion">Ocupacion:{{ tweets.location}}</li>
+        <li class="tiempo">Periodo: {{ tweets.headline}}</li>
+        <li class="location">Lugar: {{ tweets.location}}</li>
+       
+        </h2>
+        
+    </div>
+    
+{% endblock %}

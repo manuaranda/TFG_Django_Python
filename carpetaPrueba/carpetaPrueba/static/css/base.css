@@ -1,0 +1,118 @@
+
+
+body{
+	background-image: url();
+	font-family: Rockwell;
+	background: #CCE0ED
+}
+
+header div.wrapper {
+	padding: 11px 0;
+}
+
+
+.wrapper {
+	width: 1000px;
+	margin: auto;
+}
+
+
+
+.panel{
+	border: 1px solid #000000;
+	background: #718BBA;
+	margin: 0;
+	margin-bottom: 29px;
+	border-radius: 6px;
+	font-size: 14px;
+
+}
+
+.panel.right {
+	width: 264px;
+	height: 350px;
+	float: right;
+	text-align: center;
+	margin-top: 240px;
+	vertical-align: middle;
+}
+
+.panel.left {
+	width: 264px;
+	height: 193px;
+	float: left;
+	text-align: center;
+	margin-top: -260px;
+	margin-left: 732px;
+	vertical-align: middle;
+	
+}
+
+.panel.home.left {
+	width: 240px;
+	height: 500px;
+	float: left;
+	text-align: center;
+	margin-top: 16px;
+	margin-left: -300px;
+	vertical-align: middle;
+}
+
+.panel.home.center {
+	width: 700px;
+	height: 1200px;
+	float: left;
+	text-align: left;
+	margin-top: -597px;
+	margin-left: 0px;
+	vertical-align: middle;
+	
+}
+
+.panel.home.right {
+	width: 500px;
+	height: 500px;
+	float: right;
+	text-align: left;
+	margin-top: 18px;
+	margin-left: 0px;
+	vertical-align: middle;
+	
+}
+
+h1{
+	color: #000000;
+	height: 85px;
+	width: 100%;
+	top: 10px;
+}
+
+header  {
+	background: #718BBA;
+    border: 1px solid #000000;
+	height: 85px;
+	width: 100%;
+	
+	
+}
+
+input{
+
+	width: 140px;
+	height: 25px;
+	border: 1px solid #d2d2d2;
+	padding: 0 10px;
+	outline: none;
+	font-size: 14px;
+	background: #FCF8EB;
+	margin:6px;
+
+	
+}
+
+
+nav ul li a {
+	background: #EDDBA1;
+    color: #79420d;
+    border: 1px solid #79420d;
+}
