@@ -6,38 +6,154 @@
     {% endwith %}
 {% endblock %}
 
+{% block titulo %}
+
+	
+<div class="wrapper">
+	
+	<div class = "homers"> 
+		<form action="/volverPantallaPrincipal">
+			<input type="submit" id="btnHome" value="HOME" src="rutaImagen/Imagen-boton-Submit.jpg">
+		</form>		
+	</div>
+
+	
+	<div class = "nombre"> 	
+		<h2>Hola {{user}}!!<h2>
+	</div>
+        
+        <div class= "boton">
+		<form action="/logout">
+			<input type="submit" id="btnLogOut" value="Cerrar sesion" >
+		</form>	
+	</div>   
+</div>         
+
+		
+
+{% endblock %}
+
+
 {% block contenido %}
+
+	{% if fallo%}
+		<div class="flash error">
+		<h3>	{{fallo}} <h3>
+			 
+		</div>
+	{% endif %}
+
+
+    <div class="panel home down">
+    
+	<h3><a class="union">Tiene {{tweets.seguidores}} seguidores</a></h3>
+	<h3><a class="union">Sigue a {{tweets.amigos}} amigos</a></h3>	
+	<h3><a class="union">Tiene {{tweets.fav}} tweets favoritos</a></h3>
+	
+    </div>
+
+	
+    <img id="bg" src="{{ tweets.imagen }}"  />
+
     <div class="panel home left">
+    
+        <h2>Perfil Twitter</h2>
+    
+        <img src="{{ tweets.avatar }}" width="120" height="120" border="2px"/>
+            
+        <h2><a class="usuario"> {{tweets.name}}</a></h2>
+        <h3><a class="description">{{tweets.descripcion}}</a></h3>
+        <h3><a class="location">{{tweets.location}}</a></h3>
+        <h3><a class="total">Ha twitteado {{tweets.total}} veces</a></h3>
+        <h3><a class="union">Se unio en {{tweets.union}}</a></h3>
+	
+        
+        
     </div>
     
-    
-    <div class="panel home right">
-        <br>
-
-                                                   </br>
-        <h1>{{datos.nombre}} {{datos.apellido}} </h1>
-        
-        
-        <img src="{{ datos.picture }}" width="100" height="100" />
-        
-        <h3><a class="first_name">Nombre: {{datos.nombre}}</a></h3>
-        <h3><a class="last_name">Apellidos: {{datos.apellido}}</a></h3>
-        <h3><a class="location">Ciudad:{{ datos.location}}</a></h3>
-        <h3><a class="headline">Centro de estudio: {{ datos.headline}}</a></h3>
-        <h3><a class="positions">Experiencia CV: {{datos.positions}}</a></h3>
-        
-
  
+    <div class="panel home right">
+       
+
+        <form action="/buscar/{{tweets.usuario}}" method="post">{% csrf_token %}
+                {% for field in buscar %}
+                {{ field }}
+                {% endfor %}
+                <input type="submit" value="Buscar!">
+        </form> 
+                                                
+        <h2>Perfil LinkedIn</h2>
         
+        
+        <img src="{{ datos.picture }}" width="120" height="120" border="2px"/>
+        
+        <h2><a class="first_name">{{datos.nombre}} {{datos.apellido}}</a></h2>
+        <h3><a class="headline">{{ datos.headline}}</a></h3>
+	
+	
+	{% if datos.fallo3 %}	
+	
+		<h3><a class="fallo">{{datos.fallo3}}.</a></h3>
+		
+	{% endif %}
+	
+	{% if datos.mensaje %}	
+	
+		<h3><a class="fallo">{{datos.mensaje}}.</a></h3>
+		
+	{% endif %}	
+	
+        {% if datos.fechaAno or datos.fechaMes or datos.company or datos.title %}
+
+		<h3><a class="positions">Altualmente trabaja en {{datos.company}}. Entro en el {{datos.fechaMes}}/{{datos.fechaAno}} y tiene el cargo de {{datos.title}}.</a></h3>
+        
+	{% endif %}
+	
+	{% if datos.fechaAno2 or datos.fechaMes2 or datos.company2 or datos.title2 %}
+	
+		<h3><a class="positions2">Tambien trabajo en {{datos.company2}}. Entro en el {{datos.fechaMes2}}/{{datos.fechaAno2}} y tuvo el cargo de {{datos.title2}}.</a></h3>
+        
+        {% endif %}
+        
+	<h3><a class="contactos">Tiene {{datos.contactos}} contactos.</a></h3>	
+	
     </div>
     <div class="panel home center">
-            <h3>Tweets</h3>
+            <h2>Tweets</h2>
             {% for tweet in tweets.tweets %}
                 <li class="tweettext">{{ tweet.status}}</li>
                 <class="tweettime">{{ tweet.date }}
         
-                <p></p>
+                <p>----------------------------------------------------------------</p>
             {% endfor %}
-    </div>          
+    </div>    
+    
+	{% if comentario %}
+    
+		<div class="panel home comentario">
+		    <form action="/comentario/{{tweets.usuario}}" method="post">{% csrf_token %}
+			    {% for field in comentario %}
+			    {{ field }}
+			    {% endfor %}
+			    <input type="submit" value="Enviar!">
+		    </form> 
+		</div>
+		
+	{% endif %}
+
+	<div class="panel home todos">
+		<h2>  #Comentarios </h2>
+		{% for coso in todos %}
+			
+				<li class="usuario">De @{{coso.user}}</li>
+				<span class="time">Hace {{ coso.creation_date|timesince }}		
+				</br><li>{{coso.content}}</li>	
+				<p>----------------------------------------------------------------</p>
+					
+	
+		
+		{% endfor %}
+	</div>
+     
     
 {% endblock %}
