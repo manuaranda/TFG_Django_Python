@@ -72,16 +72,19 @@
     </div>
     
  
+    <div class="panel home found">
+	  <form action="/buscar/{{tweets.usuario}}" method="post">{% csrf_token %}
+	            {% for field in buscar %}
+	            {{ field }}
+	            {% endfor %}
+	            <input type="submit" value="Buscar!">
+	  </form> 
+    </div>
+                 
     <div class="panel home right">
        
 
-        <form action="/buscar/{{tweets.usuario}}" method="post">{% csrf_token %}
-                {% for field in buscar %}
-                {{ field }}
-                {% endfor %}
-                <input type="submit" value="Buscar!">
-        </form> 
-                                                
+                                      
         <h2>Perfil LinkedIn</h2>
         
         

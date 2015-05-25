@@ -31,7 +31,7 @@ def index(request, auth_form=None,formulario=None):
 
     
     
-def login_view(request):
+def login_view(request,user):
      
     if request.method == 'POST':
         form = AuthenticateForm(data=request.POST)
@@ -178,128 +178,100 @@ def getTweets(request,usuario):
 
 def getBiografia(request,usuario):
     
-    
-    from linkedin import linkedin
-    user = request.user
-    
-    #cons_key='78hcghcxdf03ko'
-    #cons_secret='PCJJm3KI2Ta7tqja'
-    #user_token='25c7aef5-49bd-4e29-a7cb-e7d4f8dc2a2a' 
-    #user_secret='7ed2cba8-9e66-4a0e-aeab-16ca8443bd2b' 
-    #return_url='http://127.0.0.1:8000/'
-    
-    cons_key='779vct8th3wnad'
-    cons_secret='LkCTAYQkarzVFCFJ'
-    user_token='d152649a-b42d-40c4-860d-5d7eabfca142' 
-    user_secret='41261b07-ba82-4d61-83b2-6cae6d1deaf6' 
-    return_url='http://127.0.0.1:8000/'
+    try:
+	from linkedin import linkedin
+	user = request.user
 	
-    auth = linkedin.LinkedInDeveloperAuthentication(cons_key, cons_secret, 
-                                                          user_token, user_secret, 
-                                                          return_url, permissions=linkedin.PERMISSIONS.enums.values())
-
-
-    app = linkedin.LinkedInApplication(auth)
-    
-    url = usuario
-    
-    array=[]
-    
-    nombre = app.get_profile(member_url=url,selectors=['first-name']).values()
-    
-    apellido = app.get_profile(member_url=url,selectors=['last-name']).values()   
-   
-    headline = app.get_profile(member_url=url, selectors=['headline']).values()
-	  
-    picture = app.get_profile(member_url=url, selectors=['picture_url']).values()
-    
-    positions = app.get_profile(member_url=url, selectors=['positions:(company:(name),startDate,title)']).values()
-    
-    contactos = app.get_profile(member_url=url, selectors=['num-connections']).values()
-    
-    
-    
-    #foto por defecto en caso de que no tenga avatar
-    if picture == []:
-	picture =['http://www.rotulomivehiculo.com/images/loginUser.png']
-    
-    
-    contador = positions[0]['_total']
-    
-    
-    if contador == 1 and len(positions[0]['values'][0]) >= 3:
-
-	fechaAno= positions[0]['values'][0]['startDate']['year']
-	fechaMes= positions[0]['values'][0]['startDate']['month']
-	company= positions[0]['values'][0]['company']['name']
-	title= positions[0]['values'][0]['title']
+	cons_key='78hcghcxdf03ko'
+	cons_secret='PCJJm3KI2Ta7tqja'
+	user_token='25c7aef5-49bd-4e29-a7cb-e7d4f8dc2a2a' 
+	user_secret='7ed2cba8-9e66-4a0e-aeab-16ca8443bd2b' 
+	return_url='http://127.0.0.1:8000/'
 	
-	return ({'nombre': nombre[0],  'headline' : headline[0], 'picture' : picture[0],'apellido' : apellido[0], 'fechaAno':fechaAno,'fechaMes':fechaMes,'company':company,'title':title,'contactos':contactos[0]} )
-
-    elif contador == 1 and len(positions[0]['values'][0])<3:
-	
-	mensaje = 'Este usuario no tiene EXP publica en LinkedIn'
-   
-	return ({'nombre': nombre[0],  'headline' : headline[0], 'picture' : picture[0],'apellido' : apellido[0], 'mensaje':mensaje,'contactos':contactos[0]} )
-    		
-
-    elif contador > 1:
-
-	fechaAno= positions[0]['values'][0]['startDate']['year']
-	fechaMes= positions[0]['values'][0]['startDate']['month']
-	company= positions[0]['values'][0]['company']['name']
-	title= positions[0]['values'][0]['title']
-   
-	fechaAno2= positions[0]['values'][1]['startDate']['year']
-	fechaMes2= positions[0]['values'][1]['startDate']['month']
-	company2= positions[0]['values'][1]['company']['name']
-	title2= positions[0]['values'][1]['title']
-	
-	return ({'nombre': nombre[0],  'headline' : headline[0], 'picture' : picture[0],'apellido' : apellido[0], 'fechaAno':fechaAno,'fechaMes':fechaMes,'company':company,'title':title,'fechaAno2':fechaAno2,'fechaMes2':fechaMes2,'company2':company2,'title2':title2,'contactos':contactos[0]} )
+	#cons_key='779vct8th3wnad'
+	#cons_secret='LkCTAYQkarzVFCFJ'
+	#user_token='d152649a-b42d-40c4-860d-5d7eabfca142' 
+	#user_secret='41261b07-ba82-4d61-83b2-6cae6d1deaf6' 
+	#return_url='http://127.0.0.1:8000/'
+	    
+	auth = linkedin.LinkedInDeveloperAuthentication(cons_key, cons_secret, 
+	                                                      user_token, user_secret, 
+	                                                      return_url, permissions=linkedin.PERMISSIONS.enums.values())
     
-    elif len(positions[0])>2 or contador<2:
-	mensaje = 'Este usuario no tiene EXP publica en LinkedIn'
-   
-	return ({'nombre': nombre[0],  'headline' : headline[0], 'picture' : picture[0],'apellido' : apellido[0], 'mensaje':mensaje,'contactos':contactos[0]} )
     
-    else:
+	app = linkedin.LinkedInApplication(auth)
 	
-	fallo='No hay suficientes datos.'
+	url = usuario
+	
+	array=[]
+	
+	nombre = app.get_profile(member_url=url,selectors=['first-name']).values()
+	
+	apellido = app.get_profile(member_url=url,selectors=['last-name']).values()   
+       
+	headline = app.get_profile(member_url=url, selectors=['headline']).values()
+	      
+	picture = app.get_profile(member_url=url, selectors=['picture_url']).values()
+	
+	positions = app.get_profile(member_url=url, selectors=['positions:(company:(name),startDate,title)']).values()
+	
+	contactos = app.get_profile(member_url=url, selectors=['num-connections']).values()
+	
+	
+	
+	#foto por defecto en caso de que no tenga avatar
+	if picture == []:
+	    picture =['http://www.rotulomivehiculo.com/images/loginUser.png']
+	
+	
+	contador = positions[0]['_total']
+	
+	
+	if contador == 1 and len(positions[0]['values'][0]) >= 3:
+    
+	    fechaAno= positions[0]['values'][0]['startDate']['year']
+	    fechaMes= positions[0]['values'][0]['startDate']['month']
+	    company= positions[0]['values'][0]['company']['name']
+	    title= positions[0]['values'][0]['title']
+	    
+	    return ({'nombre': nombre[0],  'headline' : headline[0], 'picture' : picture[0],'apellido' : apellido[0], 'fechaAno':fechaAno,'fechaMes':fechaMes,'company':company,'title':title,'contactos':contactos[0]} )
+    
+	elif contador == 1 and len(positions[0]['values'][0])<3:
+	    
+	    mensaje = 'Este usuario no tiene EXP publica en LinkedIn'
+       
+	    return ({'nombre': nombre[0],  'headline' : headline[0], 'picture' : picture[0],'apellido' : apellido[0], 'mensaje':mensaje,'contactos':contactos[0]} )
+		    
+    
+	elif contador > 1:
+    
+	    fechaAno= positions[0]['values'][0]['startDate']['year']
+	    fechaMes= positions[0]['values'][0]['startDate']['month']
+	    company= positions[0]['values'][0]['company']['name']
+	    title= positions[0]['values'][0]['title']
+       
+	    fechaAno2= positions[0]['values'][1]['startDate']['year']
+	    fechaMes2= positions[0]['values'][1]['startDate']['month']
+	    company2= positions[0]['values'][1]['company']['name']
+	    title2= positions[0]['values'][1]['title']
+	    
+	    return ({'nombre': nombre[0],  'headline' : headline[0], 'picture' : picture[0],'apellido' : apellido[0], 'fechaAno':fechaAno,'fechaMes':fechaMes,'company':company,'title':title,'fechaAno2':fechaAno2,'fechaMes2':fechaMes2,'company2':company2,'title2':title2,'contactos':contactos[0]} )
+	
+	elif len(positions[0])>2 or contador<2:
+	    mensaje = 'Este usuario no tiene EXP publica en LinkedIn'
+       
+	    return ({'nombre': nombre[0],  'headline' : headline[0], 'picture' : picture[0],'apellido' : apellido[0], 'mensaje':mensaje,'contactos':contactos[0]} )
+	
+	else:
+	    
+	    fallo='No hay suficientes datos.'
 	    
 	return ({'fallo3':fallo})
-    		
+    except:
+	errorAcceso="Error al acceder a la API de LinkeIn"
     
 
-def getPerfilProfesional(request):
-    
-    tweets=[]    
-    
-    try:
-	import twitter
-	tweet_form = AppForm()
-        user = request.user
-	api = twitter.Api(
-	    consumer_key='HSAJYkJso2lx7nV9pHGITg',
-	    consumer_secret='okILf2DfyyMrNq0JRvlEckNKFC3hFxei21X4NEcURHQ',
-	    access_token_key='310810114-eIP0VTRmwJ6uMsBHWb6qzVgp77quUloV3KfGT2MY',
-	    access_token_secret='w2U7z2XcrJHjRDpxMoD0b8lVdSCIMWkZyKckf7oiaHG11'
-	)
-	latest = api.GetUserTimeline(' ')
-	
-	
-	
-	
-	for tweet in latest:
-	    status = tweet.text
-	    tweet_date = tweet.relative_created_at    
-	    tweets.append({'status': status, 'date': tweet_date})
-	    
-	
-	    
-    except:
-	    tweets.append({'status': 'Follow us @ManuAranda9', 'date': 'about 10 minutes ago'})
-	    
-    return render(request, 'profesional.html',{'tweet_form': tweet_form, 'user': user,'tweets': tweets,'next_url': '/',})
+
 		
 
 def cargarPantalla(request):
@@ -339,10 +311,16 @@ def buscar(request,usuario):
 		
 		todos = Cuenta.objects.all().filter(destinatario=user)
 		falloBusca="No se han encontrado coincidencias con ese nombre de usuario."
-		return render(request,'inicio.html',{'buscar':buscar,'user': user,'next_url': '/', 'datos': getBiografia(request,linkedin),'tweets':getTweets(request,user),'fallo':falloBusca,'todos':todos,})
+		return render(request,'inicio.html',{'buscar':buscar,'user': user,'next_url': '/', 'datos': getBiografia(request,linkedin),'tweets':getTweets(request,usuario),'fallo':falloBusca,'todos':todos,})
 		#return HttpResponseRedirect('/login')
-        #else:
-            # Failure
-	    #return HttpResponseRedirect('/')
-            #return nuevo_usuario(request, log=form)
-	return redirect('/')
+	else:
+            
+	    user=request.user
+	    buscar =AppForm()
+
+	    comentario = ComentForm()
+	    linkedin = UserCreate.objects.values_list('first_name', flat=True).filter(username=usuario)
+	    linkedin = linkedin[0]	
+	    todos = Cuenta.objects.all().filter(destinatario=usuario)
+	    falloBusca="No se han encontrado coincidencias con ese nombre de usuario."
+	    return render(request,'inicio.html',{'buscar':buscar,'user': user,'next_url': '/', 'datos': getBiografia(request,linkedin),'tweets':getTweets(request,usuario),'fallo':falloBusca,'todos':todos,})

@@ -40,12 +40,13 @@
         <div class="panel login">
                 <h2> INICIO SESION </h2>
 		
-		<form action="/login" method="POST"> {% csrf_token %}
+		<form action="/login/{{user}}" method="POST"> {% csrf_token %}
 			{% for field in log %}
 			{{field}}
 			{% endfor %}		
-			<input type="submit" id="btnLogIn" value="Log In" src="C:\Users\manua_000\Pictures\iconoLogin.jpg">
+			<input type="submit" id="btnLogIn" value="Log In" >
 		</form>
+		
 		<p></p>
 			
 	</div>
@@ -62,7 +63,9 @@
 			{% for field in formulario %}
 			{{field}}
 			{% endfor %}
-			<input type="submit"  value="Crear Cuenta" >
+			<input type="submit"  value="Crear Cuenta" ></br>
+			<small>Nota: Por favor introduczca la URL</small>
+			<small>de LinkedIn sin acentos.</small>
 		</form>		
 							
 	</div>

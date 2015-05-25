@@ -89,21 +89,20 @@ body{
 }		
 .new {
 	width: 264px;
-	height: 350px;
-	float: right;
+	padding-bottom:10px;	
 	text-align: center;
-	margin-top: -96px;
-	margin-right: 480px;
+	margin-top: 10px;
+	margin-left: 1150px;
 	vertical-align: middle;
 }
 		
 .login {
 	width: 264px;
 	height: 205px;
-	float: right;
+	
 	text-align: center;
 	margin-top: -330px;
-	margin-right: 480px;
+	margin-left: 1150px;
 	vertical-align: middle;
 				
 }
@@ -135,10 +134,11 @@ body{
 	width: 740px;
 	float: left;
 	text-align: left;
-	margin-top: -85px;
-	margin-left: 30px;
+	margin-top: 16px;
+	margin-left: 570px;
 	vertical-align: middle;
 	padding-left: 10px;
+	position:absolute;
 				
 }
 	
@@ -146,48 +146,65 @@ body{
 	width: 500px;
 	float: right;
 	text-align: center;
-	margin-top: 16px;
-	margin-right: 41px;
+	margin-top: 115px;
+	margin-left: 1350px;
 	vertical-align: middle;
+	position:absolute;
 			
 }
 
 .home.down {
 	width: 482px;
 	text-align: center;
-	top: 16px;
-	right: 484px;
+	margin-top: 16px;
+	margin-left: 60px;
 	vertical-align: middle;
-	position:relative;
-	display: inline-flex;
+	position:absolute;
+	display: flex;
 
 			
 }
-		
+	
+
+.home.found {
+	width: 500px;
+	text-align: center;
+	margin-top: 16px;
+	margin-left: 1350px;
+	vertical-align: middle;
+	position:absolute;
+
+			
+}
 
 .home.todos {
 
-	width: 480px;
+	width: 482px;
 	text-align: left;
-	right: -21px;
+	margin-left: 1350px;
 	vertical-align: middle;
 	position: relative;
 	display: inline-block;
 	padding: 10px;	
 	background: antiquewhite;
+	margin-top: 40px;
+	
+	
 			
 }
 
 .home.comentario {
 	width: 480px;
 	text-align: center;
-	right: -21px;
+	margin-left: 807px;
 	vertical-align: middle;
 	position: relative;
 	display: inline-flex;
 	height: 213px;
 	padding: 10px;
 	background: antiquewhite;
+	margin-top: 530px;
+	
 			
 }
 

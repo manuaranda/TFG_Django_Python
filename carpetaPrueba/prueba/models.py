@@ -5,10 +5,10 @@ import hashlib
 
  
 class Cuenta(models.Model):
-    content = models.CharField(max_length=140)
+    content = models.CharField(max_length=200)
     user = models.ForeignKey(User)
     creation_date = models.DateTimeField(auto_now=True, blank=True)
-    destinatario = models.CharField(max_length=140)
+    destinatario = models.CharField(max_length=200)
     
     
 class UserProfile(models.Model):
@@ -20,7 +20,7 @@ User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
 class UserCreate(models.Model):
     
     email = models.EmailField(verbose_name='Email')
-    first_name = models.CharField(max_length=200,verbose_name='LinkedIn')
+    first_name = models.URLField(verbose_name='LinkedIn')
     username = models.CharField(max_length=200,verbose_name='Twitter')
     password1 = models.CharField(max_length=200,verbose_name='Password')
     password2 = models.CharField(max_length=200,verbose_name='Password Confirmation')
@@ -52,7 +52,7 @@ class App(models.Model) :
 	
 class Coment(models.Model) :
 	
-    contenido = models.CharField(max_length=400,verbose_name='Comentario')
+    contenido = models.CharField(max_length=200,verbose_name='Comentario')
     
  
     def is_valid(self):

@@ -10,7 +10,7 @@ class UserCreateForm (ModelForm):
 	class Meta:
 		model = UserCreate
 		fields = ['email', 'first_name', 'username','password1','password2']
-		widgets = {'password1': forms.PasswordInput(),'password2': forms.PasswordInput(),'email':forms.TextInput(attrs={'placeholder': 'Email'}),'first_name':forms.TextInput(attrs={'placeholder': 'LinkedIn'}),'username':forms.TextInput(attrs={'placeholder': 'Username/Twitter'}),'password1':forms.PasswordInput(attrs={'placeholder': 'Password'}),'password2':forms.PasswordInput(attrs={'placeholder': 'Password Confirmation'})}
+		widgets = {'password1': forms.PasswordInput(),'password2': forms.PasswordInput(),'email':forms.TextInput(attrs={'placeholder': 'Email'}),'first_name':forms.TextInput(attrs={'placeholder': 'LinkedIn *'}),'username':forms.TextInput(attrs={'placeholder': 'Username/Twitter'}),'password1':forms.PasswordInput(attrs={'placeholder': 'Password'}),'password2':forms.PasswordInput(attrs={'placeholder': 'Password Confirmation'})}
 		
 	def is_valid(self):
 		form = super(UserCreateForm, self).is_valid()
